@@ -80,20 +80,10 @@ This is the major conversion bottleneck. Users view products but don't add them 
    - Some landing pages drive better funnel progression
    - Replicate successful patterns across other pages
 
-## Files
-
-### SQL
-- `sql/ecommerce_conversion_query.sql` — Full BigQuery query with all logic
-
-### Data
-- `data/sample_data_description.md` — Dataset schema and field descriptions
-
-### Documentation
-- `docs/CASE_STUDY.md` — Detailed methodology and findings
 
 ## Visualization
 
-**Tableau Public Dashboard:** [Add your Tableau link here]
+**Tableau Public Dashboard:** [[Add your Tableau link here]](https://public.tableau.com/app/profile/oleksandr.horobinskiy/viz/FinalprojectEcommerceConversion/EcommerceConversion)
 
 ## Tech Stack
 - **BigQuery** — SQL data processing
