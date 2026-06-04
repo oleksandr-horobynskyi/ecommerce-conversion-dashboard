@@ -103,5 +103,6 @@ This is the major conversion bottleneck. Users view products but don't add them 
 
 ## Author
 Oleksandr Horobynskyi — Data Analyst  
-LinkedIn: linkedin.com/in/oleksandr-horobynskyi  
-Tableau: public.tableau.com/app/profile/oleksandr.horobinskyi
+LinkedIn: [linkedin.com/in/oleksandr-horobynskyi  ](https://www.linkedin.com/in/oleksandr-horobynskyi/)
+Tableau: [public.tableau.com/app/profile/oleksandr.horobinskyi](https://public.tableau.com/app/profile/oleksandr.horobinskiy/vizzes)
+
