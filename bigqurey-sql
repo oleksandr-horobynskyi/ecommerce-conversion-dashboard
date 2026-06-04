@@ -1,0 +1,77 @@
+WITH session_start_data AS (
+  SELECT
+    CONCAT(
+      user_pseudo_id,
+      '-',
+      CAST((
+        SELECT ep.value.int_value
+        FROM UNNEST(event_params) ep
+        WHERE ep.key = 'ga_session_id'
+      ) AS STRING)
+    ) AS user_session_id,
+    PARSE_DATE('%Y%m%d', event_date) AS session_date,
+    TIMESTAMP_MICROS(event_timestamp) AS session_start_timestamp,
+    traffic_source.source AS source,
+    traffic_source.medium AS medium,
+    traffic_source.name AS campaign,
+    device.category AS device_category,
+    device.language AS device_language,
+    device.operating_system AS operating_system,
+    REGEXP_EXTRACT(
+      (
+        SELECT ep.value.string_value
+        FROM UNNEST(event_params) ep
+        WHERE ep.key = 'page_location'
+      ),
+      r'https?://[^/]+(/[^?#]*)'
+    ) AS landing_page
+  FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+  WHERE event_name = 'session_start'
+),
+
+funnel_events AS (
+  SELECT
+    CONCAT(
+      user_pseudo_id,
+      '-',
+      CAST((
+        SELECT ep.value.int_value
+        FROM UNNEST(event_params) ep
+        WHERE ep.key = 'ga_session_id'
+      ) AS STRING)
+    ) AS user_session_id,
+    TIMESTAMP_MICROS(event_timestamp) AS event_timestamp,
+    event_name,
+    ecommerce.transaction_id AS transaction_id,
+    ecommerce.purchase_revenue AS purchase_revenue
+  FROM `bigquery-public-data.ga4_obfuscated_sample_ecommerce.events_*`
+  WHERE event_name IN (
+    'session_start',
+    'view_item',
+    'add_to_cart',
+    'begin_checkout',
+    'add_shipping_info',
+    'add_payment_info',
+    'purchase'
+  )
+)
+
+SELECT
+  s.user_session_id,
+  s.session_date,
+  s.session_start_timestamp,
+  s.landing_page,
+  s.source,
+  s.medium,
+  s.campaign,
+  s.device_category,
+  s.device_language,
+  s.operating_system,
+  f.event_timestamp,
+  f.event_name,
+  f.transaction_id,
+  f.purchase_revenue
+FROM session_start_data s
+LEFT JOIN funnel_events f
+  ON s.user_session_id = f.user_session_id
+ORDER BY s.user_session_id, f.event_timestamp;
