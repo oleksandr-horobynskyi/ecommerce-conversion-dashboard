@@ -83,7 +83,7 @@ This is the major conversion bottleneck. Users view products but don't add them 
 
 ## Visualization
 
-**Tableau Public Dashboard:** [[Tableao dashboard]](https://public.tableau.com/app/profile/oleksandr.horobinskiy/viz/FinalprojectEcommerceConversion/EcommerceConversion)
+**Tableau Public Dashboard:** [[Tableau dashboard]](https://public.tableau.com/app/profile/oleksandr.horobinskiy/viz/FinalprojectEcommerceConversion/EcommerceConversion)
 
 ## Tech Stack
 - **BigQuery** — SQL data processing
